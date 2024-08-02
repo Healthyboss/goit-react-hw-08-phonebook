@@ -36,3 +36,36 @@ export const logoutUser = createAsyncThunk(
         },
     });
 });
+
+const authSlice = createSlice({
+    name: 'auth',
+    initialState,
+    reducers: {
+      setUser: (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+      },
+      clearUser: (state) => {
+        state.user = null;
+        state.token = null;
+      },
+    },
+    extraReducers: (builder) => {
+      builder
+        .addCase(registerUser.fulfilled, (state, action) => {
+          state.user = action.payload.user;
+          state.token = action.payload.token;
+        })
+        .addCase(loginUser.fulfilled, (state, action) => {
+          state.user = action.payload.user;
+          state.token = action.payload.token;
+        })
+        .addCase(logoutUser.fulfilled, (state) => {
+          state.user = null;
+          state.token = null;
+        });
+    },
+  });
+  
+  export const { setUser, clearUser } = authSlice.actions;
+  export default authSlice.reducer;

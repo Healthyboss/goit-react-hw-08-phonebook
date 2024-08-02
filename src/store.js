@@ -11,7 +11,9 @@ const persistConfig = {
     whitelist: ['auth'],
   };
 
-  const store = configureStore({
+const persistedAuthReducer = persistReducer(persistConfig, authReducer);
+
+const store = configureStore({
     reducer: {
       auth: persistedAuthReducer,
       contacts: contactsReducer,
@@ -19,7 +21,7 @@ const persistConfig = {
     },
   });
 
-const persistedAuthReducer = persistReducer(persistConfig, authReducer);
+
 const persistor = persistStore(store);
 
 export { store, persistor };
