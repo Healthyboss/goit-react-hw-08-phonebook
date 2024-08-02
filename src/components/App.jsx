@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { fetchContacts } from '../slices/contactsSlice';
 import AuthPage from './AuthPage';
-import ContactForm from './components/ContactForm';
-import ContactList from './components/ContactList';
-import Filter from './components/Filter';
-import PrivateRoute from './components/PrivateRoute';
-import Navigation from './components/Navigation';
-import UserMenu from './components/UserMenu';
+import ContactForm from './ContactForm';
+import ContactList from './ContactList';
+import Filter from './Filter';
+import PrivateRoute from './PrivateRoute';
+import Navigation from './Navigation';
+import UserMenu from './UserMenu';
 
 const App = () => {
   const dispatch = useDispatch();

@@ -3,13 +3,6 @@ import axios from 'axios';
 
 const BASE_URL = 'https://connections-api.goit.global/';
 
-const initialState ={
-user: null,
-token: null,
-status: 'idle',
-error: null,
-}
-
 export const registerUser = createAsyncThunk(
     '/auth/registerUser', 
     async(userData) => {
@@ -20,8 +13,8 @@ export const registerUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
     '/auth/loginUser', 
-    async(credentials) => {
-    const response = await axios.post(`${BASE_URL}/users/login`,credentials);
+    async(userData) => {
+    const response = await axios.post(`${BASE_URL}/users/login`,userData);
     return response.data;
     }
 );
@@ -39,7 +32,12 @@ export const logoutUser = createAsyncThunk(
 
 const authSlice = createSlice({
     name: 'auth',
-    initialState,
+    initialState:{
+        user: null,
+        token: null,
+        status: 'idle',
+        error: null,
+        },
     reducers: {
       setUser: (state, action) => {
         state.user = action.payload.user;
