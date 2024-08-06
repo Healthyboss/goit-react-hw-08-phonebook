@@ -1,31 +1,12 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
-import { fetchContacts } from '../slices/contactsSlice';
-import AuthPage from './AuthPage';
-import ContactForm from './ContactForm';
-import ContactList from './ContactList';
-import Filter from './Filter';
-import PrivateRoute from './PrivateRoute';
-import Navigation from './Navigation';
-import UserMenu from './UserMenu';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import AuthPage from "./AuthPage";
+import ContactPage from "./ContactPage";
+import PrivateRoute from "./PrivateRoute";
+import Navigation from "./Navigation";
+import UserMenu from "./UserMenu";
 
 const App = () => {
-
-const dispatch = useDispatch();
-const [filter, setFilter] = useState("");
-const [contacts, setContacts] = useState([]);
-
-const handleFilterChange = (event) => {
-  setFilter(event.target.value);
-};
-
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
-
-  
-
   return (
     <div>
       <Navigation />
@@ -37,9 +18,7 @@ const handleFilterChange = (event) => {
             path="/contacts"
             element={
               <>
-                <Filter />
-                <ContactForm />
-                <ContactList />
+                <ContactPage />
                 <UserMenu />
               </>
             }
