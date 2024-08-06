@@ -11,11 +11,20 @@ import Navigation from './Navigation';
 import UserMenu from './UserMenu';
 
 const App = () => {
-  const dispatch = useDispatch();
+
+const dispatch = useDispatch();
+const [filter, setFilter] = useState("");
+const [contacts, setContacts] = useState([]);
+
+const handleFilterChange = (event) => {
+  setFilter(event.target.value);
+};
 
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
+
+  
 
   return (
     <div>
@@ -23,12 +32,19 @@ const App = () => {
       <Routes>
         <Route path="/register" element={<AuthPage />} />
         <Route path="/login" element={<AuthPage />} />
-        <PrivateRoute path="/contacts">
-          <Filter />
-          <ContactForm />
-          <ContactList />
-          <UserMenu />
-        </PrivateRoute>
+        <Route path="/contacts" element={<PrivateRoute />}>
+          <Route
+            path="/contacts"
+            element={
+              <>
+                <Filter />
+                <ContactForm />
+                <ContactList />
+                <UserMenu />
+              </>
+            }
+          />
+        </Route>
       </Routes>
     </div>
   );

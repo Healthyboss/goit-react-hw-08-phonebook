@@ -1,38 +1,73 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { registerUser, loginUser } from '../slices/authSlice';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { registerUser, loginUser } from "../slices/authSlice";
 
 const AuthPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [isRegistering, setIsRegistering] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const authStatus = useSelector((state) => state.auth.status);
 
-  const handleRegister = () => {
-    dispatch(registerUser({ email, password }));
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (isRegistering) {
+      dispatch(registerUser({ name, email, password }));
+    } else {
+      dispatch(loginUser({ email, password }));
+    }
   };
 
-  const handleLogin = () => {
-    dispatch(loginUser({ email, password }));
+  const toggleForm = () => {
+    setIsRegistering((prev) => !prev);
   };
 
   return (
     <div>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-      />
-      <button onClick={handleRegister}>Register</button>
-      <button onClick={handleLogin}>Login</button>
-      {authStatus === 'loading' && <p>Loading...</p>}
+      <h2>{isRegistering ? 'Register' : 'Login'}</h2>
+      <form onSubmit={handleSubmit}>
+        {isRegistering && (
+          <div>
+            <label>
+              Name:
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+        )}
+        <div>
+          <label>
+            Email:
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            Password:
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+        </div>
+        <button type="submit">{isRegistering ? 'Register' : 'Login'}</button>
+      </form>
+      <button onClick={toggleForm}>
+        {isRegistering ? 'Switch to Login' : 'Switch to Register'}
+      </button>
     </div>
   );
 };
