@@ -1,0 +1,15 @@
+.navigation{
+    display: flex;
+    flex-direction: column;
+    font-size: large;
+    font-weight: 600;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+  }
+
+  a:hover {
+    color: palevioletred;
+  }
